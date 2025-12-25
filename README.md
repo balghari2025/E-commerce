@@ -1,10 +1,6 @@
 # 🛒 Dry Fruits & Natural Products Ecommerce Store
-
 A modern, responsive, and user-friendly **Dry Fruits E-commerce Web Application** built using **React + Vite**.  
 This project focuses on clean UI, smooth navigation, and a professional shopping experience for users.
-
----
-
 ## 🚀 Features
 
 ### 🥜 Categories
@@ -33,7 +29,6 @@ This project focuses on clean UI, smooth navigation, and a professional shopping
 ---
 
 ## ⚙️ Installation Setup and Future Improvement
-
 ```bash
 git clone https://github.com/your-username/your-repo-name.git
 cd your-repo-name
@@ -44,15 +39,9 @@ npm install
 - 🔐 User Authentication  
 - 📦 Admin Dashboard  
 - ⭐ Product Reviews & Ratings  
-
----
-
 ## 🤝 Contributing
 Contributions, issues, and feature requests are welcome.  
 Feel free to fork the repository and submit a pull request.
-
----
-
 ## 📜 License
 This project is open-source and available under the **MIT License**.
 
