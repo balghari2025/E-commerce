@@ -19,6 +19,7 @@ import HerbalHealth from "./Components/HerbalHealth";
 import OilandHealth from "./Components/OilandHealth";
 import GrainandNfruits from "./Components/GrainandNfruits";
 import Specials from "./Components/Specials";
+import NewArrival from "./Components/NewArrival";
  // ✅ fix file name casing
 // import CartPage from "./Components/CartPage"; // (add when you make your cart page)
 
@@ -54,6 +55,7 @@ export default function App() {
               <Route path="OilandHealth" element={<OilandHealth />} />
               <Route path="GrainandNfruits" element={<GrainandNfruits />} />
               <Route path="Specials" element={<Specials />} />
+              <Route path="NewArrival" element={<NewArrival />} />
 
 
 
