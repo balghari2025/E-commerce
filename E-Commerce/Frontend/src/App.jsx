@@ -7,7 +7,7 @@ import Categories from "./Components/Categories";
 import Filters from "./Components/Filter";
 import Footer from "./Components/Footer";
 import Products from "./Components/All_Products";
-import CartProvider from "./Components/CartContex";
+import CartProvider from "./Components/CartProvider";
 import CartPage from "./Components/CartPage";
 import OrderNow from "./Components/OrderNow";
 import AboutUs from "./Components/AboutUs";
