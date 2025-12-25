@@ -1,7 +1,7 @@
 import React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Trash2, Plus, Minus, ArrowLeft, ShoppingBag } from "lucide-react";
-import { useCart } from "./CartContex";
+import { useCart } from "./CartProvider";
 import { useNavigate } from "react-router-dom";
 
 export default function CartPage() {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useCart } from "./CartContex";
+import { useCart } from "./CartProvider";
 
 function OilandHealth() {
     const { addToCart } = useCart();

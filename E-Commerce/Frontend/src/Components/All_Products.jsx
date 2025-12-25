@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "./CartContex"; // ✅ using CartContext
+import { useCart } from "./CartProvider"; // ✅ using CartContext
 
 const products = [
   {

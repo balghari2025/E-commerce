@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { ShoppingCart, Mail, Phone, Home, User } from "lucide-react";
-import { useCart } from "./CartContex";
+import { useCart } from "./CartProvider";
 import axios from "axios";
 
 const parsePrice = (price) => {
