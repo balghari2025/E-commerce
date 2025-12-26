@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../icon/logo.png'; // Update this path to your logo
+import logo from '../icon/logo.png';
 import { 
   FaChevronDown, 
   FaSearch, 
@@ -81,11 +81,11 @@ const cartMenuItems = [
 // Logo Component - Displays the company logo
 const Logo = ({ darkMode, logoUrl }) => {
   return (
-    <Link to="/" className="flex items-center">
+    <Link to="/" className="flex items-center flex-shrink-0">
       <img 
         src={logo} 
         alt="Khobani Logo" 
-        className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px] w-auto transition-all duration-300" 
+        className="h-12 sm:h-16 md:h-[180px] lg:h-[200px] w-auto transition-all duration-300 max-w-[120px] sm:max-w-none" 
       />
     </Link>
   );
@@ -242,7 +242,7 @@ const CartDropdown = ({
             <li key={index}>
               <Link 
                 to={item.path}
-                className={`block px-4 py-2 ${theme.dropdownHover} transition-colors duration-200`}
+                className={`block px-2 py-2 ${theme.dropdownHover} transition-colors duration-200`}
                 onClick={onCloseAll}
               >
                 {item.name}
@@ -272,13 +272,13 @@ const DesktopActionButtons = ({
   const theme = getThemeStyles(darkMode);
   
   return (
-    <div className="hidden md:flex items-center gap-4">
+    <div className="hidden md:flex items-center gap-4 flex-shrink-0">
       {/* Dark/Light mode toggle */}
       {/* Search bar */}
       <SearchBar darkMode={darkMode} />
        <button 
         onClick={onToggleDarkMode}
-        className={`p-3 rounded-full ${theme.text} hover:opacity-80 transition-all duration-300`}
+        className={`p-3 rounded-full ${theme.text} hover:opacity-80 transition-all duration-300 flex-shrink-0`}
         aria-label="Toggle dark mode"
       >
         {darkMode ? <FaSun className="text-xl" /> : <FaMoon className="text-xl" />}
@@ -300,7 +300,7 @@ const DesktopActionButtons = ({
       {showWishlist && (
         <Link 
           to="/wishlist"
-          className={`${theme.text} cursor-pointer hover:opacity-80 transition-colors hidden sm:block`}
+          className={`${theme.text} cursor-pointer hover:opacity-80 transition-colors hidden sm:block flex-shrink-0`}
           aria-label="Wishlist"
         >
           <FaHeart className="text-lg" />
@@ -333,13 +333,13 @@ const MobileActionButtons = ({
   const theme = getThemeStyles(darkMode);
   
   return (
-    <div className="flex md:hidden items-center gap-3 sm:gap-4">
+    <div className="flex md:hidden items-center gap-2 sm:gap-4">
       {/* Search icon - hidden on mobile, visible on sm and above */}
       <FaSearch className={`${theme.text} text-lg cursor-pointer hidden sm:block`} />
       
       {/* Mobile cart icon - fixed position for mobile */}
       {showCart && (
-        <div className="relative">
+        <div className="relative flex-shrink-0">
           <FaShoppingCart className={`${theme.text} text-lg cursor-pointer`} />
           {/* Fixed cart badge for mobile - smaller and properly positioned */}
           <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
@@ -351,7 +351,7 @@ const MobileActionButtons = ({
       {/* Mobile menu toggle button */}
       <button 
         onClick={onToggleMobileMenu}
-        className={`${theme.text} text-xl p-1`}
+        className={`${theme.text} text-xl p-1 flex-shrink-0`}
         aria-label={isMobileOpen ? "Close menu" : "Open menu"}
         aria-expanded={isMobileOpen}
       >
@@ -374,7 +374,7 @@ const MobileDropdownItem = ({
   return (
     <div className={`border-b ${theme.border}`}>
       <button 
-        className={`flex justify-between items-center w-full px-4 py-4 font-medium cursor-pointer ${theme.mobileText}`}
+        className={`flex justify-between items-center w-8 px-4 py-4 font-medium cursor-pointer ${theme.mobileText}`}
         onClick={onToggle}
         aria-expanded={isActive}
       >
@@ -514,7 +514,7 @@ const Navbar = ({
   showUserMenu = true,
   showWishlist = true,
   cartCount = 3,
-  logoUrl = "/src/assets/logo.png" // Update this path to your logo
+  logoUrl = "/src/assets/logo.png"
 }) => {
   // State for all dropdowns and menus
   const [darkMode, setDarkMode] = useState(initialDarkMode);
@@ -527,11 +527,11 @@ const Navbar = ({
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleUserMenu = () => {
     setIsUserOpen(!isUserOpen);
-    setIsCartOpen(false); // Close cart when opening user menu
+    setIsCartOpen(false);
   };
   const toggleCartMenu = () => {
     setIsCartOpen(!isCartOpen);
-    setIsUserOpen(false); // Close user menu when opening cart
+    setIsUserOpen(false);
   };
   const toggleMobileMenu = () => setIsMobileOpen(!isMobileOpen);
   const toggleDropdown = (index) => {
@@ -552,7 +552,7 @@ const Navbar = ({
   return (
     <>
       {/* Main Navigation Bar - Fixed with proper spacing */}
-      <nav className={`fixed top-0 left-0 right-0 ${theme.navBg} h-16 md:h-20 py-3 flex items-center justify-between px-4 md:px-8 z-50 shadow-lg transition-colors duration-300`}>
+      <nav className={`fixed top-0 left-0 right-0 ${theme.navBg} h-16 md:h-20 py-3 flex items-center justify-between px-3 md:px-8 z-50 shadow-lg transition-colors duration-300 overflow-x-hidden`}>
         
         {/* Logo */}
         <Logo 
@@ -561,12 +561,12 @@ const Navbar = ({
         />
 
         {/* Desktop Navigation Links */}
-        <div className="flex-1 justify-center">
+        <div className="flex-1 justify-center hidden md:flex">
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
         </div>
 
         {/* Action Buttons - Fixed spacing for mobile */}
-        <div className="flex items-center gap-2 sm:gap-3 md:gap-6">
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-6 flex-shrink-0">
           <DesktopActionButtons 
             darkMode={darkMode}
             onToggleDarkMode={toggleDarkMode}
