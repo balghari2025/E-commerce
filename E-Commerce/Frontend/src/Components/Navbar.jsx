@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../icon/logo.png'; // Update this path to your logo
@@ -80,13 +79,13 @@ const cartMenuItems = [
 ];
 
 // Logo Component - Displays the company logo
-const Logo = ({ darkMode, logoUrl, companyName }) => {
+const Logo = ({ darkMode, logoUrl }) => {
   return (
     <Link to="/" className="flex items-center">
       <img 
         src={logo} 
-        alt={`${companyName} Logo`} 
-        className="h-[200px] lg:h-[200px] w-auto transition-all duration-300" 
+        alt="Khobani Logo" 
+        className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px] w-auto transition-all duration-300" 
       />
     </Link>
   );
@@ -115,9 +114,8 @@ const DesktopDropdown = ({ items, darkMode }) => {
 // Desktop Navigation Links - Main menu for desktop screens
 const DesktopNavLinks = ({ navItems, darkMode }) => {
   const theme = getThemeStyles(darkMode);
-  
   return (
-    <ul className="flex gap-6 xl:gap-6 font-medium text-base">
+    <ul className="hidden md:flex gap-6 xl:gap-6 font-medium text-base">
       {navItems.map((item, index) => (
         <li key={index} className="relative group">
           {item.dropdown ? (
@@ -228,12 +226,12 @@ const CartDropdown = ({
     <div className="relative">
       <button 
         onClick={onToggle}
-        className={`${theme.text} text-lg cursor-pointer hover:opacity-80 transition-colors`}
+        className={`${theme.text} text-lg cursor-pointer hover:opacity-80 transition-colors relative`}
         aria-label="Shopping cart"
         aria-expanded={isOpen}
       >
         <FaShoppingCart className="text-lg" />
-        {/* Cart item count badge */}
+        {/* Cart item count badge - fixed for mobile */}
         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
           {cartCount}
         </span>
@@ -274,7 +272,7 @@ const DesktopActionButtons = ({
   const theme = getThemeStyles(darkMode);
   
   return (
-    <div className="hidden lg:flex items-center gap-4">
+    <div className="hidden md:flex items-center gap-4">
       {/* Dark/Light mode toggle */}
       {/* Search bar */}
       <SearchBar darkMode={darkMode} />
@@ -298,11 +296,11 @@ const DesktopActionButtons = ({
         />
       )}
 
-      {/* Wishlist */}
+      {/* Wishlist - hidden on mobile, visible on sm and above */}
       {showWishlist && (
         <Link 
           to="/wishlist"
-          className={`${theme.text} cursor-pointer hover:opacity-80 transition-colors`}
+          className={`${theme.text} cursor-pointer hover:opacity-80 transition-colors hidden sm:block`}
           aria-label="Wishlist"
         >
           <FaHeart className="text-lg" />
@@ -335,16 +333,17 @@ const MobileActionButtons = ({
   const theme = getThemeStyles(darkMode);
   
   return (
-    <div className="flex lg:hidden items-center gap-4">
-      {/* Mobile search icon */}
-      <FaSearch className={`${theme.text} text-lg cursor-pointer`} />
+    <div className="flex md:hidden items-center gap-3 sm:gap-4">
+      {/* Search icon - hidden on mobile, visible on sm and above */}
+      <FaSearch className={`${theme.text} text-lg cursor-pointer hidden sm:block`} />
       
-      {/* Mobile cart icon */}
+      {/* Mobile cart icon - fixed position for mobile */}
       {showCart && (
         <div className="relative">
           <FaShoppingCart className={`${theme.text} text-lg cursor-pointer`} />
-          <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center">
-            {cartCount}
+          {/* Fixed cart badge for mobile - smaller and properly positioned */}
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center">
+            {cartCount > 9 ? '9+' : cartCount}
           </span>
         </div>
       )}
@@ -421,13 +420,13 @@ const MobileMenu = ({
     <>
       {/* Mobile menu overlay */}
       <div 
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 lg:hidden" 
+        className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" 
         onClick={onCloseAll}
         aria-hidden="true"
       ></div>
 
       {/* Mobile menu content */}
-      <div className={`fixed top-16 left-0 right-0 ${theme.mobileMenuBg} shadow-xl z-40 transform transition-transform duration-300 lg:hidden ${
+      <div className={`fixed top-16 left-0 right-0 ${theme.mobileMenuBg} shadow-xl z-40 transform transition-transform duration-300 md:hidden ${
         isOpen ? 'translate-y-0' : '-translate-y-full'
       }`}>
         
@@ -515,8 +514,7 @@ const Navbar = ({
   showUserMenu = true,
   showWishlist = true,
   cartCount = 3,
-  logoUrl = "/src/assets/logo.png", // Update this path to your logo
-  companyName = "Your Brand"
+  logoUrl = "/src/assets/logo.png" // Update this path to your logo
 }) => {
   // State for all dropdowns and menus
   const [darkMode, setDarkMode] = useState(initialDarkMode);
@@ -553,23 +551,22 @@ const Navbar = ({
 
   return (
     <>
-      {/* Main Navigation Bar */}
-      <nav className={`fixed top-0 left-0 right-0 ${theme.navBg} h-16 lg:h-20 py-3 flex items-center justify-between px-4 lg:px-8 z-50 shadow-lg transition-colors duration-300`}>
+      {/* Main Navigation Bar - Fixed with proper spacing */}
+      <nav className={`fixed top-0 left-0 right-0 ${theme.navBg} h-16 md:h-20 py-3 flex items-center justify-between px-4 md:px-8 z-50 shadow-lg transition-colors duration-300`}>
         
         {/* Logo */}
         <Logo 
           darkMode={darkMode} 
-          logoUrl={logoUrl} 
-          companyName={companyName} 
+          logoUrl={logoUrl}
         />
 
         {/* Desktop Navigation Links */}
-        <div className="hidden lg:flex flex-1 justify-center">
+        <div className="flex-1 justify-center">
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex items-center gap-4 lg:gap-6">
+        {/* Action Buttons - Fixed spacing for mobile */}
+        <div className="flex items-center gap-2 sm:gap-3 md:gap-6">
           <DesktopActionButtons 
             darkMode={darkMode}
             onToggleDarkMode={toggleDarkMode}
@@ -605,7 +602,7 @@ const Navbar = ({
       />
 
       {/* Spacer for fixed navbar */}
-      <div className="h-16 lg:h-20"></div>
+      <div className="h-16 md:h-20"></div>
     </>
   );
 };

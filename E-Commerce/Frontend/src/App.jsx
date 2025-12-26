@@ -20,9 +20,6 @@ import OilandHealth from "./Components/OilandHealth";
 import GrainandNfruits from "./Components/GrainandNfruits";
 import Specials from "./Components/Specials";
 import NewArrival from "./Components/NewArrival";
- // ✅ fix file name casing
-// import CartPage from "./Components/CartPage"; // (add when you make your cart page)
-
 function HomePage() {
   return (
     <>
@@ -56,15 +53,12 @@ export default function App() {
               <Route path="GrainandNfruits" element={<GrainandNfruits />} />
               <Route path="Specials" element={<Specials />} />
               <Route path="NewArrival" element={<NewArrival />} />
-
-
-
+              
             </Routes>
 
-            {/* ✅ Link should be outside Routes */}
             <div className="text-center my-4">
               <Link
-                to="/View Cart"
+                to="/view-cart"
                 className="text-blue-600 hover:underline font-semibold"
               >
                 
