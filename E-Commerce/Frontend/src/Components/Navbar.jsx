@@ -81,13 +81,16 @@ const cartMenuItems = [
 // Logo Component - Displays the company logo with adjusted size for professional fit
 const Logo = ({ darkMode, logoUrl }) => {
   return (
-    <Link to="/" className="flex items-center">
-      <img
-        src={logo}
-        alt="Khobani Logo"
-        className="h-10 md:h-12 transition-all duration-300"
-      />
-    </Link>
+   <Link to="/" className="flex items-center gap-2">
+  <img
+    src={logo}
+    alt="Khobani Logo"
+    className="h-16 mr-12 md:mr-24 md:h-32 w-96 "
+  />
+  <span className="text-white font-semibold"></span>
+</Link>
+
+
   );
 };
 
@@ -219,7 +222,7 @@ const CartDropdown = ({
         aria-expanded={isOpen}
       >
         <FaShoppingCart className="text-lg" />
-        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+        <span className="absolute -top-1 right-0 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
           {cartCount > 9 ? '9+' : cartCount}
         </span>
       </button>
@@ -319,7 +322,7 @@ const MobileActionButtons = ({
         aria-label="Shopping cart"
       >
         <FaShoppingCart className="text-lg" />
-        <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
+        <span className="absolute -top-1 right-0 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
           {cartCount > 9 ? '9+' : cartCount}
         </span>
       </button>
@@ -542,7 +545,7 @@ const Navbar = ({
         <div className="flex-1 flex justify-center">
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center mx-16 gap-0">
           <DesktopActionButtons
             darkMode={darkMode}
             onToggleDarkMode={toggleDarkMode}
