@@ -85,7 +85,7 @@ const Logo = ({ darkMode, logoUrl }) => {
       <img
         src={logo}
         alt="Khobani Logo"
-        className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px] w-auto transition-all duration-300"
+        className="h-[120px] sm:h-[150px] md:h-[180px] lg:h-[200px] w-96 transition-all duration-300"
       />
     </Link>
   );
@@ -553,11 +553,11 @@ const Navbar = ({
         />
 
         {/* Desktop Navigation Links */}
-        <div className="flex-1 justify-right mx-16 md:mx-6 flex items-center gap-4 md:gap-6">
+        <div className="flex-1 justify-right mx-24 md:mx-6 flex items-center md:gap-6">
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
 
           {/* Action Buttons - Fixed spacing for mobile */}
-          <div className="flex items-center gap-2 sm:gap-3 md:gap-6">
+          <div className="flex items-center  gap-2 sm:gap-3 md:gap-6">
             <DesktopActionButtons
               darkMode={darkMode}
               onToggleDarkMode={toggleDarkMode}
@@ -596,7 +596,7 @@ const Navbar = ({
       />
 
       {/* Spacer for fixed navbar */}
-      <div className="h-16 md:h-20"></div>
+      {/* <div className="h-16 md:h-20"></div> */}
     </>
   );
 };
