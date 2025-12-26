@@ -85,7 +85,7 @@ const Logo = ({ darkMode, logoUrl }) => {
   <img
     src={logo}
     alt="Khobani Logo"
-    className="h-20 mr-12 md:mr-24 md:h-32 w-96 "
+    className="h-24 mr-12 md:mr-24 md:h-32 w-96 "
   />
   <span className="text-white font-semibold"></span>
 </Link>
@@ -322,7 +322,7 @@ const MobileActionButtons = ({
         aria-label="Shopping cart"
       >
         <FaShoppingCart className="text-lg" />
-        <span className="absolute -top-1 right-0 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
+        <span className="absolute -top-2 right-1 left-2 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
           {cartCount > 9 ? '9+' : cartCount}
         </span>
       </button>
@@ -483,12 +483,12 @@ const MobileMenu = ({
 const getThemeStyles = (darkMode) => {
   return {
     navBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
-    dropdownBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    dropdownBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
     mobileMenuBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
     mobileSubBg: darkMode ? 'bg-gray-700' : 'bg-gray-50',
     text: darkMode ? 'text-gray-100' : 'text-white',
     hoverText: darkMode ? 'text-gray-300' : 'text-gray-600',
-    dropdownText: darkMode ? 'text-gray-500' : 'text-gray-400',
+    dropdownText: darkMode ? 'text-gray-300' : 'text-gray-400',
     mobileText: darkMode ? 'text-gray-100' : 'text-white',
     iconText: darkMode ? 'text-gray-300' : 'text-white',
     hoverBg: darkMode ? 'bg-gray-200' : 'bg-gray-700',
