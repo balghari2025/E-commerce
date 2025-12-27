@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import slide1 from "../img/slide1.webp";
 import slide2 from "../img/slide2.jpg";
-import slide3 from "../img/slide3.webp";
+import slide3 from "../img/slide3.jpg";
 import slide4 from "../img/slide4.jpg";
 import slide5 from "../img/slide5.webp";
-import slide6 from "../img/slide6.webp";
+import slide6 from "../img/slide6.jpg";
 
 function HeroSlider() {
   const images = [
-    { src: slide1, text: "Fresh Organic Akhrot" },
-    { src: slide2, text: "Sweet Skardu Khobani" },
+    { src: slide1, text: "Fresh Natural Apple " },
+    { src: slide2, text: "Sweet Skardu DryFruit" },
     { src: slide3, text: "Pure Natural Dry Fruit" },
     { src: slide4, text: "Pure Himalayan Shilajit" },
-    { src: slide5, text: "Natural Dry Fruits Baadam" },
-    { src: slide6, text: "Natural Dry Fruits Akhroot" }
+    { src: slide5, text: "Natural Dry Fruits Akhroot" },
+    { src: slide6, text: "Natural Dry Fruits Center" }
   ];
 
   const [current, setCurrent] = useState(0);

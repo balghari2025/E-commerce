@@ -5,44 +5,44 @@ import walnutsImg from "../img/walnuts.jpg";
 import pistachiosImg from "../img/pistachios.jpg";
 import datesImg from "../img/dates.jpg";
 
-const newArrivalsData = [
+const bestSellersData = [
   {
-    id: 1,
-    name: "Premium Almonds",
-    price: "₨ 1,450",
+    id: 101,
+    name: "Best Almonds Pack",
+    price: "₨ 1,550",
     image: almondsImg,
   },
   {
-    id: 2,
-    name: "Organic Walnuts",
-    price: "₨ 1,800",
+    id: 102,
+    name: "Top Quality Walnuts",
+    price: "₨ 1,900",
     image: walnutsImg,
   },
   {
-    id: 3,
-    name: "Fresh Pistachios",
-    price: "₨ 2,200",
+    id: 103,
+    name: "Hot Selling Pistachios",
+    price: "₨ 2,350",
     image: pistachiosImg,
   },
   {
-    id: 4,
-    name: "Natural Dates",
-    price: "₨ 950",
+    id: 104,
+    name: "Premium Dates Box",
+    price: "₨ 1,050",
     image: datesImg,
   },
 ];
 
-const NewArrivals = () => {
+const BestSellers = () => {
   const { addToCart } = useCart();
 
   return (
     <div className="px-6 py-10">
       <h1 className="text-3xl font-bold text-center mb-8">
-        🆕 New Arrivals
+        🔥 Best Sellers
       </h1>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {newArrivalsData.map((item) => (
+        {bestSellersData.map((item) => (
           <div
             key={item.id}
             className="border rounded-lg p-4 shadow hover:shadow-lg transition"
@@ -74,4 +74,4 @@ const NewArrivals = () => {
   );
 };
 
-export default NewArrivals;
+export default BestSellers;

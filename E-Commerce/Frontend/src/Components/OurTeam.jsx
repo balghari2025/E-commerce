@@ -2,7 +2,7 @@ import React from 'react';
 import CEO from '../img/CEO.png';
 import img from '../img/img.jpg';
 import lead from '../img/lead.jpg';
-import slide3 from '../img/slide3.webp';
+import slide3 from '../img/slide3.jpg';
 
 const OurTeam = () => {
   const teamMembers = [

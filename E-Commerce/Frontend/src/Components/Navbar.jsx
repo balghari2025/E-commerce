@@ -43,9 +43,9 @@ const navItems = [
     path: "/products",
     dropdown: [
       { name: "New Arrivals", path: "/NewArrival" },
-      { name: "Best Sellers", path: "/products/bestsellers" },
-      { name: "Discounts", path: "/products/discounts" },
-      { name: "Popular", path: "/products/popular" },
+      { name: "Best Sellers", path: "/BestSellers" },
+      { name: "Discounts", path: "/Discount" },
+      { name: "Popular", path: "/Popular" },
       { name: "All products", path: "/products" }
     ]
   },

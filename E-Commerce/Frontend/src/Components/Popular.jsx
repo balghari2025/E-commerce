@@ -1,52 +1,62 @@
 import React from "react";
 import { useCart } from "./CartProvider";
+
 import almondsImg from "../img/almonds.jpg";
 import walnutsImg from "../img/walnuts.jpg";
 import pistachiosImg from "../img/pistachios.jpg";
 import datesImg from "../img/dates.jpg";
 
-const newArrivalsData = [
+const popularProducts = [
   {
-    id: 1,
-    name: "Premium Almonds",
-    price: "₨ 1,450",
+    id: 301,
+    name: "Popular Almonds",
+    price: "₨ 1,500",
     image: almondsImg,
+    tag: "Popular",
   },
   {
-    id: 2,
-    name: "Organic Walnuts",
-    price: "₨ 1,800",
+    id: 302,
+    name: "Most Loved Walnuts",
+    price: "₨ 1,850",
     image: walnutsImg,
+    tag: "Trending",
   },
   {
-    id: 3,
-    name: "Fresh Pistachios",
-    price: "₨ 2,200",
+    id: 303,
+    name: "Top Pistachios",
+    price: "₨ 2,250",
     image: pistachiosImg,
+    tag: "Hot",
   },
   {
-    id: 4,
-    name: "Natural Dates",
-    price: "₨ 950",
+    id: 304,
+    name: "Customer Favorite Dates",
+    price: "₨ 1,000",
     image: datesImg,
+    tag: "Best",
   },
 ];
 
-const NewArrivals = () => {
+const Popular = () => {
   const { addToCart } = useCart();
 
   return (
     <div className="px-6 py-10">
-      <h1 className="text-3xl font-bold text-center mb-8">
-        🆕 New Arrivals
+      <h1 className="text-3xl font-bold text-center mb-8 text-yellow-600">
+        ⭐ Popular Products
       </h1>
 
       <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {newArrivalsData.map((item) => (
+        {popularProducts.map((item) => (
           <div
             key={item.id}
-            className="border rounded-lg p-4 shadow hover:shadow-lg transition"
+            className="relative border rounded-lg p-4 shadow hover:shadow-lg transition"
           >
+            {/* Tag Badge */}
+            <span className="absolute top-2 left-2 bg-yellow-500 text-white text-xs px-2 py-1 rounded">
+              {item.tag}
+            </span>
+
             <img
               src={item.image}
               alt={item.name}
@@ -74,4 +84,4 @@ const NewArrivals = () => {
   );
 };
 
-export default NewArrivals;
+export default Popular;

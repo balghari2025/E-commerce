@@ -20,6 +20,9 @@ import OilandHealth from "./Components/OilandHealth";
 import GrainandNfruits from "./Components/GrainandNfruits";
 import Specials from "./Components/Specials";
 import NewArrival from "./Components/NewArrival";
+import BestSellers from "./Components/BestSeller";
+import Discount from "./Components/Discount";
+import Popular from "./Components/Popular";
 function HomePage() {
   return (
     <>
@@ -53,6 +56,9 @@ export default function App() {
               <Route path="GrainandNfruits" element={<GrainandNfruits />} />
               <Route path="Specials" element={<Specials />} />
               <Route path="NewArrival" element={<NewArrival />} />
+              <Route path="BestSellers" element={<BestSellers />} />
+              <Route path="Discount" element={<Discount />} />
+              <Route path="Popular" element={<Popular />} />
               
             </Routes>
 
