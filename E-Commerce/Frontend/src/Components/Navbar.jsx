@@ -53,9 +53,9 @@ const navItems = [
     name: "FAQ",
     path: "/faq",
     dropdown: [
-      { name: "Shipping and Delivery", path: "/faq/shipping" },
-      { name: "Returns and Refunds", path: "/faq/returns" },
-      { name: "Payment methods", path: "/faq/payment" },
+      { name: "Shipping and Delivery", path: "/ShippingDelivery" },
+      { name: "Returns and Refunds", path: "/ReturnRefund" },
+      { name: "Payment methods", path: "/PaymentMethod" },
       { name: "Order Tracking", path: "/faq/tracking" },
       { name: "Contact support", path: "/faq/contact" }
     ]
@@ -485,7 +485,7 @@ const getThemeStyles = (darkMode) => {
     navBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
     dropdownBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
     mobileMenuBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
-    mobileSubBg: darkMode ? 'bg-gray-700' : 'bg-gray-50',
+    mobileSubBg: darkMode ? 'bg-gray-700' : 'bg-gray-500',
     text: darkMode ? 'text-gray-100' : 'text-white',
     hoverText: darkMode ? 'text-gray-300' : 'text-gray-600',
     dropdownText: darkMode ? 'text-gray-300' : 'text-gray-400',

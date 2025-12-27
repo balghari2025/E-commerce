@@ -23,6 +23,9 @@ import NewArrival from "./Components/NewArrival";
 import BestSellers from "./Components/BestSeller";
 import Discount from "./Components/Discount";
 import Popular from "./Components/Popular";
+import ShippingDelivery from "./Components/ShippingDelivery";
+import ReturnRefund from "./Components/ReturnRefund";
+import PaymentMethod from "./Components/PaymentMethod";
 function HomePage() {
   return (
     <>
@@ -59,6 +62,9 @@ export default function App() {
               <Route path="BestSellers" element={<BestSellers />} />
               <Route path="Discount" element={<Discount />} />
               <Route path="Popular" element={<Popular />} />
+              <Route path="ShippingDelivery" element={<ShippingDelivery />} />
+              <Route path="ReturnRefund" element={<ReturnRefund />} />
+              <Route path="PaymentMethod" element={<PaymentMethod />} />
               
             </Routes>
 
