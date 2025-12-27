@@ -1,5 +1,5 @@
 import React from "react";
-import { useCart } from "./CartProvider"; // ✅ using CartContext
+import { useCart } from "./CartProvider"; 
 
 const products = [
   {
@@ -9,7 +9,7 @@ const products = [
     image: "https://gbdryfruitsupplier.pk/wp-content/uploads/2024/09/Untitled-design-4-350x443.jpg.webp",
   },
   {
-
+    id: 2,
     name: "Dried Ginger",
     price: "₨ 900 ",
     image: "https://rukminim2.flixcart.com/image/704/844/kialrww0-0/spice-masala/j/f/l/100-sonth-zingiber-officinale-dry-ginger-seed-pouch-kotaliya-original-imafy4hhgupt27pw.jpeg?q=90&crop=false",

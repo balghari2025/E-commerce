@@ -9,9 +9,12 @@ export default function CartPage() {
   const navigate = useNavigate();
 
   const subtotal = items.reduce((acc, item) => {
-    const price = parseInt((item.price || "").replace(/[^\d]/g, ""));
-    return acc + price * (item.quantity || 1);
-  }, 0);
+  const raw = item.price || "0";
+  const str = typeof raw === "string" ? raw : String(raw);
+  const price = parseInt(str.replace(/[^\d]/g, ""), 10) || 0;
+  return acc + price * (item.quantity || 1);
+}, 0);
+
 
   const tax = subtotal * 0.1;
   const total = subtotal + tax;
@@ -36,7 +39,9 @@ export default function CartPage() {
             <div className="text-6xl mb-4">🛒</div>
             <h2 className="text-2xl font-semibold text-gray-900 mb-4">Your cart is empty</h2>
             <p className="text-gray-600 mb-6">Looks like you haven't added any items to your cart yet.</p>
-            <button type="button" className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200 flex items-center justify-center gap-2 mx-auto">
+            <button type="button" className="bg-green-600 text-white px-6 py-3 rounded-lg font-semibold hover:bg-green-700 transition-colors duration-200 flex items-center justify-center gap-2 mx-auto"
+              onClick={() => navigate("/")}
+            >
               <ArrowLeft size={20} />
               Back to Shop
             </button>

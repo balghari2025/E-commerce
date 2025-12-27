@@ -26,6 +26,8 @@ import Popular from "./Components/Popular";
 import ShippingDelivery from "./Components/ShippingDelivery";
 import ReturnRefund from "./Components/ReturnRefund";
 import PaymentMethod from "./Components/PaymentMethod";
+import OrderTracking from "./Components/OrderTraking"; 
+
 function HomePage() {
   return (
     <>
@@ -65,6 +67,9 @@ export default function App() {
               <Route path="ShippingDelivery" element={<ShippingDelivery />} />
               <Route path="ReturnRefund" element={<ReturnRefund />} />
               <Route path="PaymentMethod" element={<PaymentMethod />} />
+              <Route path="OrderTraking" element={<OrderTracking />} />
+              
+              
               
             </Routes>
 

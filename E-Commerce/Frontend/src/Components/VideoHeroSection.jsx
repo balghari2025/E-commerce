@@ -5,7 +5,6 @@ import slide3 from "../img/slide3.jpg";
 import slide4 from "../img/slide4.jpg";
 import slide5 from "../img/slide5.webp";
 import slide6 from "../img/slide6.jpg";
-
 function HeroSlider() {
   const images = [
     { src: slide1, text: "Fresh Natural Apple " },
@@ -39,7 +38,6 @@ function HeroSlider() {
         alt="slider"
         className="w-full h-full object-cover transition-transform duration-700 ease-in-out"
       />
-      
       {/* Overlay with Content */}
       <div className="absolute inset-0 bg-black/40 flex flex-col items-center justify-center text-white text-center px-4">
         {/* Main Heading */}
@@ -61,7 +59,9 @@ function HeroSlider() {
                           text-sm md:text-base lg:text-lg font-semibold
                           transition-all duration-300 transform hover:scale-105
                           shadow-lg hover:shadow-xl
-                          border-2 border-blue-400">
+                          border-2 border-blue-400"
+                          onClick={() => window.location.href = "/products"}
+                          >
           Shop Now
         </button>
       </div>

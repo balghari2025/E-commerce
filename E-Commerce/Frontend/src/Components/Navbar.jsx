@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../icon/logo.png'; // Update this path to your logo
+import LoginModal  from "./LoginModal"; // Changed from default import
+import RegisterModal from "./RegisterModal"; // Changed from default import
 import {
   FaChevronDown,
   FaSearch,
@@ -56,19 +58,19 @@ const navItems = [
       { name: "Shipping and Delivery", path: "/ShippingDelivery" },
       { name: "Returns and Refunds", path: "/ReturnRefund" },
       { name: "Payment methods", path: "/PaymentMethod" },
-      { name: "Order Tracking", path: "/faq/tracking" },
-      { name: "Contact support", path: "/faq/contact" }
+      { name: "Order Tracking", path: "/OrderTraking" },
+      { name: "Contact support", path: "/Contact" }
     ]
   },
 ];
 
 // User menu items
 const userMenuItems = [
-  { name: "Login", path: "/login" },
-  { name: "Register", path: "/register" },
-  { name: "Profile", path: "/profile" },
-  { name: "Settings", path: "/settings" },
-  { name: "Logout", path: "/logout" }
+  // { name: "Login", path: "/Login" },
+  // { name: "Register", path: "/register" },
+  // { name: "Profile", path: "/profile" },
+  // { name: "Settings", path: "/settings" },
+  // { name: "Logout", path: "/logout" }
 ];
 
 // Cart menu items
@@ -81,16 +83,14 @@ const cartMenuItems = [
 // Logo Component - Displays the company logo with adjusted size for professional fit
 const Logo = ({ darkMode, logoUrl }) => {
   return (
-   <Link to="/" className="flex items-center gap-2">
-  <img
-    src={logo}
-    alt="Khobani Logo"
-    className="h-24 mr-12 md:mr-24 md:h-32 w-96 "
-  />
-  <span className="text-white font-semibold"></span>
-</Link>
-
-
+    <Link to="/" className="flex items-center gap-2">
+      <img
+        src={logo}
+        alt="Khobani Logo"
+        className="h-24 mr-12 md:mr-24 md:h-32 w-96 "
+      />
+      <span className="text-white font-semibold"></span>
+    </Link>
   );
 };
 
@@ -169,20 +169,63 @@ const UserDropdown = ({
   onToggle,
   darkMode,
   userMenuItems,
-  onCloseAll
+  onCloseAll,
+  onLoginClick,
+  onRegisterClick
 }) => {
   const theme = getThemeStyles(darkMode);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
     <div className="relative">
-      <button
+      <div
         onClick={onToggle}
-        className={`flex items-center ${theme.iconText} hover:${theme.hoverText} transition-colors`}
+        className={`flex items-center ${theme.iconText} hover:${theme.hoverText} transition-colors cursor-pointer`}
         aria-label="User menu"
         aria-expanded={isOpen}
       >
-        <FaUser className="text-lg" />
-      </button>
+        <div className="relative">
+          {/* USER ICON */}
+          <FaUser
+            className="cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              setUserMenuOpen(!userMenuOpen);
+            }}
+          />
+
+          {/* DROPDOWN MENU */}
+          {userMenuOpen && (
+            <div className="absolute right-0 mt-3 w-40 bg-gray-800 shadow-lg rounded z-50">
+              <button
+                onClick={() => {
+                  onLoginClick();
+                  setUserMenuOpen(false);
+                }}
+                className="block w-full text-left px-4 py-2 hover:bg-gray-600 text-white hover:bg-gray-600 transition-colors"
+              >
+                Login
+              </button>
+
+              <button
+                onClick={() => {
+                  onRegisterClick();
+                  setUserMenuOpen(false);
+                }}
+                className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors"
+              >
+                Register
+              </button>
+              <button className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors">
+                Profile
+              </button>
+              <button className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors">
+                Settings
+              </button>
+            </div>
+          )}
+        </div>
+      </div>
       {isOpen && (
         <ul className={`absolute right-0 mt-3 w-48 ${theme.dropdownBg} ${theme.dropdownText} text-sm rounded-lg shadow-lg py-2 z-50`}>
           {userMenuItems.map((item, index) => (
@@ -257,7 +300,9 @@ const DesktopActionButtons = ({
   showWishlist,
   showCart,
   cartCount,
-  onCloseAll
+  onCloseAll,
+  onLoginClick,
+  onRegisterClick
 }) => {
   const theme = getThemeStyles(darkMode);
 
@@ -278,6 +323,8 @@ const DesktopActionButtons = ({
           darkMode={darkMode}
           userMenuItems={userMenuItems}
           onCloseAll={onCloseAll}
+          onLoginClick={onLoginClick}
+          onRegisterClick={onRegisterClick}
         />
       )}
       {showWishlist && (
@@ -388,7 +435,9 @@ const MobileMenu = ({
   showWishlist,
   cartMenuItems,
   userMenuItems,
-  onToggleCart
+  onToggleCart,
+  onLoginClick,
+  onRegisterClick
 }) => {
   const theme = getThemeStyles(darkMode);
 
@@ -456,7 +505,25 @@ const MobileMenu = ({
                 {item.name}
               </Link>
             ))}
-            {userMenuItems.map((item, index) => (
+            <button
+              onClick={() => {
+                onLoginClick();
+                onCloseAll();
+              }}
+              className={`px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
+            >
+              Login
+            </button>
+            <button
+              onClick={() => {
+                onRegisterClick();
+                onCloseAll();
+              }}
+              className={`px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
+            >
+              Register
+            </button>
+            {userMenuItems.slice(2).map((item, index) => (
               <Link
                 key={index}
                 to={item.path}
@@ -488,7 +555,7 @@ const getThemeStyles = (darkMode) => {
     mobileSubBg: darkMode ? 'bg-gray-700' : 'bg-gray-500',
     text: darkMode ? 'text-gray-100' : 'text-white',
     hoverText: darkMode ? 'text-gray-300' : 'text-gray-600',
-    dropdownText: darkMode ? 'text-gray-300' : 'text-gray-400',
+    dropdownText: darkMode ? 'text-white' : 'tex-white',
     mobileText: darkMode ? 'text-gray-100' : 'text-white',
     iconText: darkMode ? 'text-gray-300' : 'text-white',
     hoverBg: darkMode ? 'bg-gray-200' : 'bg-gray-700',
@@ -515,6 +582,8 @@ const Navbar = ({
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
+  const [loginOpen, setLoginOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
 
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleUserMenu = () => {
@@ -558,6 +627,8 @@ const Navbar = ({
             showCart={showCart}
             cartCount={cartCount}
             onCloseAll={closeAllDropdowns}
+            onLoginClick={() => setLoginOpen(true)}
+            onRegisterClick={() => setRegisterOpen(true)}
           />
           <MobileActionButtons
             darkMode={darkMode}
@@ -581,8 +652,26 @@ const Navbar = ({
         cartMenuItems={cartMenuItems}
         userMenuItems={userMenuItems}
         onToggleCart={toggleCartMenu}
+        onLoginClick={() => setLoginOpen(true)}
+        onRegisterClick={() => setRegisterOpen(true)}
       />
       <div className="h-16 md:h-20"></div>
+      <LoginModal
+        open={loginOpen}
+        onClose={() => setLoginOpen(false)}
+        onRegisterClick={() => {
+          setLoginOpen(false);
+          setRegisterOpen(true);
+        }}
+      />
+      <RegisterModal
+        open={registerOpen}
+        onClose={() => setRegisterOpen(false)}
+        onLoginClick={() => {
+          setRegisterOpen(false);
+          setLoginOpen(true);
+        }}
+      />
     </>
   );
 };
