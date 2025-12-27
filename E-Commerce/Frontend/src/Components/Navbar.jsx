@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../icon/logo.png'; // Update this path to your logo
-import LoginModal  from "./LoginModal"; // Changed from default import
+import LoginModal from "./LoginModal"; // Changed from default import
 import RegisterModal from "./RegisterModal"; // Changed from default import
 import {
   FaChevronDown,
@@ -196,13 +196,13 @@ const UserDropdown = ({
 
           {/* DROPDOWN MENU */}
           {userMenuOpen && (
-            <div className="absolute right-0 mt-3 w-40 bg-gray-800 shadow-lg rounded z-50">
+            <div className="absolute right-0 mt-3 w-40 bg-gray-500 shadow-lg rounded z-50">
               <button
                 onClick={() => {
                   onLoginClick();
                   setUserMenuOpen(false);
                 }}
-                className="block w-full text-left px-4 py-2 hover:bg-gray-600 text-white hover:bg-gray-600 transition-colors"
+                className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors"
               >
                 Login
               </button>
@@ -549,20 +549,22 @@ const MobileMenu = ({
 // Helper function to get theme styles based on dark mode - professional colors
 const getThemeStyles = (darkMode) => {
   return {
-    navBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
-    dropdownBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
-    mobileMenuBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
-    mobileSubBg: darkMode ? 'bg-gray-700' : 'bg-gray-500',
-    text: darkMode ? 'text-gray-100' : 'text-white',
+    navBg: darkMode ? 'bg-gray-900' : 'bg-gray-500',
+    text: darkMode ? 'text-white' : 'text-gray-800',
     hoverText: darkMode ? 'text-gray-300' : 'text-gray-600',
-    dropdownText: darkMode ? 'text-white' : 'tex-white',
-    mobileText: darkMode ? 'text-gray-100' : 'text-white',
-    iconText: darkMode ? 'text-gray-300' : 'text-white',
-    hoverBg: darkMode ? 'bg-gray-200' : 'bg-gray-700',
-    dropdownHover: darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-100',
+    iconText: darkMode ? 'text-gray-300' : 'text-gray-800',
+    dropdownBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
+    dropdownText: darkMode ? 'text-white' : 'text-white',
+    dropdownHover: darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-700',
     border: darkMode ? 'border-gray-700' : 'border-gray-200',
-    searchBg: darkMode ? 'bg-gray-800' : 'bg-gray-50',
-    searchText: darkMode ? 'text-white placeholder-gray-400' : 'text-gray-800 placeholder-gray-500',
+    mobileMenuBg: darkMode ? 'bg-gray-900' : 'bg-gray-500',
+    mobileSubBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
+    mobileText: darkMode ? 'text-gray-100' : 'text-gray-800',
+    hoverBg: darkMode ? 'bg-gray-700' : 'bg-gray-700',
+    searchBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
+    searchText: darkMode
+      ? 'text-white placeholder-gray-400'
+      : 'text-gray-800 placeholder-gray-100',
     searchBorder: darkMode ? 'border-gray-700' : 'border-gray-300',
     searchFocus: darkMode ? 'focus:ring-blue-400' : 'focus:ring-blue-500',
   };
