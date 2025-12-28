@@ -99,38 +99,50 @@ const products = [
     image: "http://themill.in/wp-content/uploads/2021/07/muskmelon-seed.jpg",
   },
 ];
-
 const DryFruit = () => {
-  const { addToCart } = useCart(); // ✅ Access cart context
+  const { addToCart } = useCart(); // ✅ backend logic untouched
 
   return (
-    <div className="p-6">
-      <h2 className="text-2xl font-bold mb-6 text-center">Our Products</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+    <div className="p-4 sm:p-6">
+      <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-center text-gray-800 dark:text-gray-100">
+        Our Products
+      </h2>
+
+      <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {products.map((product) => (
           <div
             key={product.id}
-            className="bg-white shadow-lg rounded-xl overflow-hidden transition-transform hover:scale-105"
+            className="bg-gray-100 dark:bg-gray-900 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1"
           >
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-48 object-cover"
-            />
-            <div className="p-4">
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-600 font-medium mt-2">{product.price}</p>
+            {/* Image */}
+            <div className="h-44 w-full overflow-hidden">
+              <img
+                src={product.image}
+                alt={product.name}
+                className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+              />
             </div>
-            <div className="flex gap-2 p-4">
-              {/* ✅ Working Add to Cart */}
+
+            {/* Content */}
+            <div className="p-4">
+              <h3 className="text-sm sm:text-base font-semibold text-black line-clamp-1">
+                {product.name}
+              </h3>
+              <p className="text-sm font-medium text-gray-200 mt-1">
+                {product.price}
+              </p>
+            </div>
+
+            {/* Buttons */}
+            <div className="flex gap-2 p-4 pt-0">
               <button
                 onClick={() => addToCart(product)}
-                className="w-32 h-8 bg-green-600 text-white text-xs py-2 px-4 rounded-lg hover:bg-green-700 transition-colors"
+                className="flex-1 h-9 bg-green-600 text-white text-xs rounded-lg hover:bg-green-700 transition-colors"
               >
                 Add to Cart
               </button>
 
-              <button className="w-32 h-9 bg-yellow-500 text-white text-xs py-2 px-4 rounded-lg hover:bg-yellow-600 transition-colors">
+              <button className="flex-1 h-9 bg-yellow-500 text-white text-xs rounded-lg hover:bg-yellow-600 transition-colors">
                 Show More
               </button>
             </div>
@@ -142,3 +154,4 @@ const DryFruit = () => {
 };
 
 export default DryFruit;
+

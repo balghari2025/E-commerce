@@ -527,7 +527,7 @@ const getThemeStyles = (darkMode) => {
     text: darkMode ? 'text-gray-200' : 'text-white',
     hoverText: darkMode ? 'text-white' : 'text-gray-300',
     iconText: darkMode ? 'text-gray-300' : 'text-gray-200',
-    dropdownBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    dropdownBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
     dropdownText: darkMode ? 'text-gray-200' : 'text-white',
     dropdownHover: darkMode ? 'hover:bg-gray-700 hover:text-white' : 'hover:bg-gray-600 hover:text-gray-200',
     border: darkMode ? 'border-gray-700' : 'border-gray-600',

@@ -118,8 +118,8 @@ const Products = () => {
               className="w-full h-48 object-cover"
             />
             <div className="p-4">
-              <h3 className="text-lg font-semibold">{product.name}</h3>
-              <p className="text-gray-600 font-medium mt-2">{product.price}</p>
+              <h3 className="text-gray-900 font-semibold">{product.name}</h3>
+              <p className="text-gray-900 font-medium mt-2">{product.price}</p>
             </div>
             <div className="flex gap-2 p-4">
               {/* ✅ Working Add to Cart */}
