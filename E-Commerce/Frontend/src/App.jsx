@@ -27,6 +27,7 @@ import ShippingDelivery from "./Components/ShippingDelivery";
 import ReturnRefund from "./Components/ReturnRefund";
 import PaymentMethod from "./Components/PaymentMethod";
 import OrderTracking from "./Components/OrderTraking"; 
+import CheackOut from "./Components/CheackOut";
 
 function HomePage() {
   return (
@@ -68,6 +69,7 @@ export default function App() {
               <Route path="ReturnRefund" element={<ReturnRefund />} />
               <Route path="PaymentMethod" element={<PaymentMethod />} />
               <Route path="OrderTraking" element={<OrderTracking />} />
+              <Route path="CheackOut" element={<CheackOut />} />
               
               
               

@@ -3,7 +3,7 @@ import { createOrder, getOrders } from "./controller.js";
 
 const router = express.Router();
 
-router.post("/", createOrder);   // For saving order
-router.get("/", getOrders);      // For viewing all orders
+router.post("/", createOrder);
+router.get("/", getOrders);
 
 export default router;

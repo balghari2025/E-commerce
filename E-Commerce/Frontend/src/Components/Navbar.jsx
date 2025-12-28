@@ -76,7 +76,7 @@ const userMenuItems = [
 // Cart menu items
 const cartMenuItems = [
   { name: "View Cart", path: "/view-cart" },
-  { name: "Checkout", path: "/checkout" },
+  { name: "Checkout", path: "/CheackOut" },
   { name: "Order History", path: "/orders" }
 ];
 
@@ -216,12 +216,7 @@ const UserDropdown = ({
               >
                 Register
               </button>
-              <button className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors">
-                Profile
-              </button>
-              <button className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors">
-                Settings
-              </button>
+             
             </div>
           )}
         </div>
