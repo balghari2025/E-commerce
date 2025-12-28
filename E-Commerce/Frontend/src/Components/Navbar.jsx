@@ -87,7 +87,7 @@ const Logo = ({ darkMode, logoUrl }) => {
       <img
         src={logo}
         alt="Khobani Logo"
-        className="h-24 mr-12 md:mr-24 md:h-32 w-96 "
+        className="h-26 mr-16 md:mr-24 md:h-32 w-96 "
       />
       <span className="text-white font-semibold"></span>
     </Link>
@@ -611,7 +611,7 @@ const Navbar = ({
         <div className="flex-1 flex justify-center">
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
         </div>
-        <div className="flex items-center mx-16 gap-0">
+        <div className="flex items-center mx-24 gap-0">
           <DesktopActionButtons
             darkMode={darkMode}
             onToggleDarkMode={toggleDarkMode}
