@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../icon/logo.png'; // Update this path to your logo
 import LoginModal from "./LoginModal"; // Changed from default import
-import RegisterModal from "./RegisterModal"; // Changed from default import
+import RegisterModal from "./RegisterModal";
 import {
   FaChevronDown,
   FaSearch,
@@ -15,7 +15,8 @@ import {
   FaSun
 } from 'react-icons/fa';
 
-// Navigation data - easy to modify (all pages included with clickable paths)
+
+// Navigation data - centralized and easy to modify
 const navItems = [
   { name: "Home", path: "/", dropdown: null },
   {
@@ -66,11 +67,9 @@ const navItems = [
 
 // User menu items
 const userMenuItems = [
-  // { name: "Login", path: "/Login" },
-  // { name: "Register", path: "/register" },
-  // { name: "Profile", path: "/profile" },
-  // { name: "Settings", path: "/settings" },
-  // { name: "Logout", path: "/logout" }
+  { name: "Profile", path: "/profile" },
+  { name: "Settings", path: "/settings" },
+  { name: "Logout", path: "/logout" }
 ];
 
 // Cart menu items
@@ -79,32 +78,32 @@ const cartMenuItems = [
   { name: "Checkout", path: "/CheackOut" },
   { name: "Order History", path: "/orders" }
 ];
+// Logo Component - Responsive logo with alt text and proper sizing
 
-// Logo Component - Displays the company logo with adjusted size for professional fit
 const Logo = ({ darkMode, logoUrl }) => {
   return (
-    <Link to="/" className="flex items-center gap-2">
+    <Link to="/" className="flex ">
       <img
         src={logo}
-        alt="Khobani Logo"
-        className="h-26 mr-16 md:mr-24 md:h-32 w-96 "
+        alt="Khalis Online Logo"
+        className="h-32 mr-20 gap-2 w-auto md:h-24"
       />
-      <span className="text-white font-semibold"></span>
+      <span className="text-xl font-bold text-white hidden sm:block"></span>
     </Link>
   );
 };
 
-// Desktop Dropdown Component - Shows dropdown menu on hover with smooth animation
+// Desktop Dropdown - Smooth fade-in animation, shadow, and rounded corners
 const DesktopDropdown = ({ items, darkMode }) => {
   const theme = getThemeStyles(darkMode);
 
   return (
-    <ul className={`absolute left-0 mt-2 w-48 ${theme.dropdownBg} ${theme.dropdownText} text-sm rounded-lg shadow-lg py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 z-50`}>
+    <ul className={`absolute left-0 top-full mt-2 w-48 rounded-lg shadow-xl py-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 ease-in-out transform group-hover:translate-y-0 translate-y-2 z-50 ${theme.dropdownBg} ${theme.dropdownText}`}>
       {items.map((item, index) => (
         <li key={index}>
           <Link
             to={item.path}
-            className={`block px-4 py-2 ${theme.dropdownHover} transition-colors duration-200`}
+            className={`block px-4 py-2 text-sm ${theme.dropdownHover} transition-colors duration-200`}
           >
             {item.name}
           </Link>
@@ -114,16 +113,16 @@ const DesktopDropdown = ({ items, darkMode }) => {
   );
 };
 
-// Desktop Navigation Links - Main menu for desktop screens, centered
+// Desktop Nav Links - Centered, with hover effects and dropdown indicator
 const DesktopNavLinks = ({ navItems, darkMode }) => {
   const theme = getThemeStyles(darkMode);
   return (
-    <ul className="hidden md:flex gap-8 font-medium text-base">
+    <ul className="hidden lg:flex items-center gap-6 xl:gap-8 font-medium text-base">
       {navItems.map((item, index) => (
         <li key={index} className="relative group">
           {item.dropdown ? (
             <>
-              <span className={`${theme.text} hover:${theme.hoverText} cursor-pointer flex items-center transition-all duration-200`}>
+              <span className={`flex items-center cursor-pointer ${theme.text} hover:${theme.hoverText} transition-colors duration-200`}>
                 {item.name}
                 <FaChevronDown className="ml-1 text-xs transition-transform duration-200 group-hover:rotate-180" />
               </span>
@@ -143,12 +142,12 @@ const DesktopNavLinks = ({ navItems, darkMode }) => {
   );
 };
 
-// Search Bar Component - Search input with icon, responsive widths
+// Search Bar - Responsive width, with focus ring and placeholder
 const SearchBar = ({ darkMode, isMobile = false }) => {
   const theme = getThemeStyles(darkMode);
   const inputClass = isMobile
-    ? `w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 ${theme.searchBg} ${theme.searchText} ${theme.searchBorder} ${theme.searchFocus}`
-    : `w-40 md:w-64 px-4 py-2 rounded-full border focus:outline-none focus:ring-2 ${theme.searchBg} ${theme.searchText} ${theme.searchBorder} ${theme.searchFocus}`;
+    ? `w-full px-4 py-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.searchBg} ${theme.searchText} ${theme.searchBorder} ${theme.searchFocus}`
+    : `w-32 sm:w-48 md:w-64 lg:w-80 px-4 py-2 rounded-full border focus:outline-none focus:ring-2 focus:ring-offset-2 ${theme.searchBg} ${theme.searchText} ${theme.searchBorder} ${theme.searchFocus}`;
 
   return (
     <div className="relative">
@@ -158,12 +157,12 @@ const SearchBar = ({ darkMode, isMobile = false }) => {
         className={inputClass}
         aria-label="Search products"
       />
-      <FaSearch className={`absolute right-3 top-1/2 transform -translate-y-1/2 ${theme.iconText}`} />
+      <FaSearch className={`absolute right-3 top-1/2 -translate-y-1/2 ${theme.iconText} text-lg`} />
     </div>
   );
 };
 
-// User Dropdown Component - User menu with dropdown
+// User Dropdown - With login/register and other items
 const UserDropdown = ({
   isOpen,
   onToggle,
@@ -174,60 +173,40 @@ const UserDropdown = ({
   onRegisterClick
 }) => {
   const theme = getThemeStyles(darkMode);
-  const [userMenuOpen, setUserMenuOpen] = useState(false);
 
   return (
     <div className="relative">
-      <div
+      <button
         onClick={onToggle}
-        className={`flex items-center ${theme.iconText} hover:${theme.hoverText} transition-colors cursor-pointer`}
+        className={`flex items-center ${theme.iconText} hover:${theme.hoverText} transition-colors duration-200`}
         aria-label="User menu"
         aria-expanded={isOpen}
       >
-        <div className="relative">
-          {/* USER ICON */}
-          <FaUser
-            className="cursor-pointer"
-            onClick={(e) => {
-              e.stopPropagation();
-              setUserMenuOpen(!userMenuOpen);
-            }}
-          />
-
-          {/* DROPDOWN MENU */}
-          {userMenuOpen && (
-            <div className="absolute right-0 mt-3 w-40 bg-gray-500 shadow-lg rounded z-50">
-              <button
-                onClick={() => {
-                  onLoginClick();
-                  setUserMenuOpen(false);
-                }}
-                className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors"
-              >
-                Login
-              </button>
-
-              <button
-                onClick={() => {
-                  onRegisterClick();
-                  setUserMenuOpen(false);
-                }}
-                className="block w-full text-left px-4 py-2 text-white hover:bg-gray-600 transition-colors"
-              >
-                Register
-              </button>
-             
-            </div>
-          )}
-        </div>
-      </div>
+        <FaUser className="text-lg" />
+      </button>
       {isOpen && (
-        <ul className={`absolute right-0 mt-3 w-48 ${theme.dropdownBg} ${theme.dropdownText} text-sm rounded-lg shadow-lg py-2 z-50`}>
+        <ul className={`absolute right-0 top-full mt-2 w-48 rounded-lg shadow-xl py-2 z-50 ${theme.dropdownBg} ${theme.dropdownText}`}>
+          <li>
+            <button
+              onClick={() => { onLoginClick(); onCloseAll(); }}
+              className={`block w-full text-left px-4 py-2 text-sm ${theme.dropdownHover} transition-colors duration-200`}
+            >
+              Login
+            </button>
+          </li>
+          <li>
+            <button
+              onClick={() => { onRegisterClick(); onCloseAll(); }}
+              className={`block w-full text-left px-4 py-2 text-sm ${theme.dropdownHover} transition-colors duration-200`}
+            >
+              Register
+            </button>
+          </li>
           {userMenuItems.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.path}
-                className={`block px-4 py-2 ${theme.dropdownHover} transition-colors duration-200`}
+                className={`block px-4 py-2 text-sm ${theme.dropdownHover} transition-colors duration-200`}
                 onClick={onCloseAll}
               >
                 {item.name}
@@ -240,7 +219,7 @@ const UserDropdown = ({
   );
 };
 
-// Cart Dropdown Component - Shopping cart with badge and dropdown
+// Cart Dropdown - With badge and menu items
 const CartDropdown = ({
   isOpen,
   onToggle,
@@ -255,22 +234,24 @@ const CartDropdown = ({
     <div className="relative">
       <button
         onClick={onToggle}
-        className={`${theme.iconText} hover:${theme.hoverText} transition-colors relative`}
-        aria-label="Shopping cart"
+        className={`${theme.iconText} hover:${theme.hoverText} transition-colors duration-200 relative`}
+        aria-label={`Shopping cart with ${cartCount} items`}
         aria-expanded={isOpen}
       >
         <FaShoppingCart className="text-lg" />
-        <span className="absolute -top-2 right-0 left-2 bg-red-500 text-white text-xs rounded-full w-4 h-4 flex items-center justify-center font-bold">
-          {cartCount > 9 ? '9+' : cartCount}
-        </span>
+        {cartCount > 0 && (
+          <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[1.25rem] h-5 flex items-center justify-center font-medium">
+            {cartCount > 99 ? '99+' : cartCount}
+          </span>
+        )}
       </button>
       {isOpen && (
-        <ul className={`absolute right-0 mt-3 w-48 ${theme.dropdownBg} ${theme.dropdownText} text-sm rounded-lg shadow-lg py-2 z-50`}>
+        <ul className={`absolute right-0 top-full mt-2 w-48 rounded-lg shadow-xl py-2 z-50 ${theme.dropdownBg} ${theme.dropdownText}`}>
           {cartMenuItems.map((item, index) => (
             <li key={index}>
               <Link
                 to={item.path}
-                className={`block px-4 py-2 ${theme.dropdownHover} transition-colors duration-200`}
+                className={`block px-4 py-2 text-sm ${theme.dropdownHover} transition-colors duration-200`}
                 onClick={onCloseAll}
               >
                 {item.name}
@@ -283,7 +264,7 @@ const CartDropdown = ({
   );
 };
 
-// Desktop Action Buttons - Right side buttons for desktop
+// Desktop Actions - Search, theme toggle, user, wishlist, cart
 const DesktopActionButtons = ({
   darkMode,
   onToggleDarkMode,
@@ -302,12 +283,12 @@ const DesktopActionButtons = ({
   const theme = getThemeStyles(darkMode);
 
   return (
-    <div className="hidden md:flex items-center gap-4">
+    <div className="hidden md:flex items-center gap-4 lg:gap-6">
       <SearchBar darkMode={darkMode} />
       <button
         onClick={onToggleDarkMode}
-        className={`${theme.iconText} hover:${theme.hoverText} transition-all duration-300`}
-        aria-label="Toggle dark mode"
+        className={`${theme.iconText} hover:${theme.hoverText} transition-colors duration-200`}
+        aria-label="Toggle theme"
       >
         {darkMode ? <FaSun className="text-lg" /> : <FaMoon className="text-lg" />}
       </button>
@@ -325,7 +306,7 @@ const DesktopActionButtons = ({
       {showWishlist && (
         <Link
           to="/wishlist"
-          className={`${theme.iconText} hover:${theme.hoverText} transition-colors`}
+          className={`${theme.iconText} hover:${theme.hoverText} transition-colors duration-200`}
           aria-label="Wishlist"
         >
           <FaHeart className="text-lg" />
@@ -345,7 +326,7 @@ const DesktopActionButtons = ({
   );
 };
 
-// Mobile Action Buttons - Right side buttons for mobile, with cart clickable
+// Mobile Actions - Cart and hamburger
 const MobileActionButtons = ({
   darkMode,
   onToggleMobileMenu,
@@ -358,19 +339,23 @@ const MobileActionButtons = ({
 
   return (
     <div className="flex md:hidden items-center gap-4">
-      <button
-        onClick={onToggleCart}
-        className={`${theme.iconText} hover:${theme.hoverText} transition-colors relative`}
-        aria-label="Shopping cart"
-      >
-        <FaShoppingCart className="text-lg" />
-        <span className="absolute -top-2 right-1 left-2 bg-red-500 text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center font-bold">
-          {cartCount > 9 ? '9+' : cartCount}
-        </span>
-      </button>
+      {showCart && (
+        <button
+          onClick={onToggleCart}
+          className={`${theme.iconText} hover:${theme.hoverText} transition-colors duration-200 relative`}
+          aria-label={`Shopping cart with ${cartCount} items`}
+        >
+          <FaShoppingCart className="text-lg" />
+          {cartCount > 0 && (
+            <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full min-w-[1.25rem] h-5 flex items-center justify-center font-medium">
+              {cartCount > 99 ? '99+' : cartCount}
+            </span>
+          )}
+        </button>
+      )}
       <button
         onClick={onToggleMobileMenu}
-        className={`${theme.iconText} text-lg`}
+        className={`${theme.iconText} text-xl`}
         aria-label={isMobileOpen ? "Close menu" : "Open menu"}
         aria-expanded={isMobileOpen}
       >
@@ -380,7 +365,7 @@ const MobileActionButtons = ({
   );
 };
 
-// Mobile Dropdown Item - Accordion style for mobile menu
+// Mobile Dropdown Item - Accordion with smooth transition
 const MobileDropdownItem = ({
   item,
   isActive,
@@ -391,34 +376,34 @@ const MobileDropdownItem = ({
   const theme = getThemeStyles(darkMode);
 
   return (
-    <div className={`border-b ${theme.border}`}>
+    <div>
       <button
-        className={`flex justify-between items-center w-full px-4 py-3 font-medium ${theme.mobileText} hover:${theme.hoverBg}`}
+        className={`flex justify-between items-center w-full px-6 py-4 text-left font-medium ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200 border-b ${theme.border}`}
         onClick={onToggle}
         aria-expanded={isActive}
       >
         {item.name}
-        <FaChevronDown className={`transition-transform duration-200 ${isActive ? 'rotate-180' : ''}`} />
+        <FaChevronDown className={`text-sm transition-transform duration-300 ${isActive ? 'rotate-180' : ''}`} />
       </button>
-      {isActive && (
-        <div className={`${theme.mobileSubBg} py-1`}>
+      <div className={`overflow-hidden transition-all duration-300 ${isActive ? 'max-h-96' : 'max-h-0'}`}>
+        <div className={`${theme.mobileSubBg} py-2`}>
           {item.dropdown.map((subItem, subIndex) => (
             <Link
               key={subIndex}
               to={subItem.path}
-              className={`block px-6 py-2 ${theme.mobileText} hover:${theme.hoverBg} transition-colors`}
+              className={`block px-8 py-3 text-sm ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
               onClick={onCloseAll}
             >
               {subItem.name}
             </Link>
           ))}
         </div>
-      )}
+      </div>
     </div>
   );
 };
 
-// Mobile Menu - Full screen menu for mobile devices, including dark mode toggle and wishlist
+// Mobile Menu - Slide-in from top, with search, nav, actions
 const MobileMenu = ({
   isOpen,
   darkMode,
@@ -441,15 +426,14 @@ const MobileMenu = ({
   return (
     <>
       <div
-        className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
+        className="fixed inset-0 bg-black/50 z-40 md:hidden"
         onClick={onCloseAll}
-        aria-hidden="true"
-      ></div>
-      <div className={`fixed top-16 left-0 right-0 bottom-0 ${theme.mobileMenuBg} shadow-lg z-40 transform transition-transform duration-300 md:hidden overflow-y-auto ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
-        <div className="p-4 border-b">
+      />
+      <div className={`fixed top-[4rem] md:top-[5rem] left-0 right-0 bottom-0 ${theme.mobileMenuBg} overflow-y-auto z-50 transition-transform duration-300 ease-in-out md:hidden ${isOpen ? 'translate-y-0' : '-translate-y-full'}`}>
+        <div className="p-4 border-b ${theme.border}">
           <SearchBar darkMode={darkMode} isMobile={true} />
         </div>
-        <div>
+        <nav>
           {navItems.map((item, index) => (
             item.dropdown ? (
               <MobileDropdownItem
@@ -461,118 +445,111 @@ const MobileMenu = ({
                 onCloseAll={onCloseAll}
               />
             ) : (
-              <div key={index} className={`border-b ${theme.border}`}>
-                <Link
-                  to={item.path}
-                  className={`block px-4 py-3 font-medium ${theme.mobileText} hover:${theme.hoverBg} transition-colors`}
-                  onClick={onCloseAll}
-                >
-                  {item.name}
-                </Link>
-              </div>
+              <Link
+                key={index}
+                to={item.path}
+                className={`block px-6 py-4 font-medium ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200 border-b ${theme.border}`}
+                onClick={onCloseAll}
+              >
+                {item.name}
+              </Link>
             )
           ))}
-        </div>
-        <div className="p-4 border-t">
-          <div className="flex flex-col gap-2">
+        </nav>
+        <div className="p-4 border-t ${theme.border}">
+          <div className="space-y-1">
+            <button
+              onClick={() => { onLoginClick(); onCloseAll(); }}
+              className={`w-full text-left px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
+            >
+              Login
+            </button>
+            <button
+              onClick={() => { onRegisterClick(); onCloseAll(); }}
+              className={`w-full text-left px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
+            >
+              Register
+            </button>
+            {userMenuItems.map((item, index) => (
+              <Link
+                key={index}
+                to={item.path}
+                className={`block px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
+                onClick={onCloseAll}
+              >
+                {item.name}
+              </Link>
+            ))}
             {showWishlist && (
               <Link
                 to="/wishlist"
-                className={`flex items-center px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors`}
+                className={`flex items-center px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
                 onClick={onCloseAll}
               >
-                <FaHeart className="mr-2" /> Wishlist
+                <FaHeart className="mr-3 text-lg" /> Wishlist
               </Link>
             )}
             <button
-              onClick={onToggleCart}
-              className={`flex items-center px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
+              onClick={() => { onToggleCart(); onCloseAll(); }}
+              className={`flex items-center w-full text-left px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
             >
-              <FaShoppingCart className="mr-2" /> Cart
+              <FaShoppingCart className="mr-3 text-lg" /> Cart
             </button>
             {cartMenuItems.map((item, index) => (
               <Link
                 key={index}
                 to={item.path}
-                className={`px-6 py-2 ${theme.mobileText} hover:${theme.hoverBg} transition-colors block`}
+                className={`block px-8 py-3 text-sm ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
                 onClick={onCloseAll}
               >
                 {item.name}
               </Link>
             ))}
             <button
-              onClick={() => {
-                onLoginClick();
-                onCloseAll();
-              }}
-              className={`px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
+              onClick={() => { onToggleDarkMode(); onCloseAll(); }}
+              className={`flex items-center w-full text-left px-6 py-4 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors duration-200`}
             >
-              Login
-            </button>
-            <button
-              onClick={() => {
-                onRegisterClick();
-                onCloseAll();
-              }}
-              className={`px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
-            >
-              Register
-            </button>
-            {userMenuItems.slice(2).map((item, index) => (
-              <Link
-                key={index}
-                to={item.path}
-                className={`px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors`}
-                onClick={onCloseAll}
-              >
-                {item.name}
-              </Link>
-            ))}
-            <button
-              onClick={onToggleDarkMode}
-              className={`flex items-center px-4 py-3 rounded-lg ${theme.mobileText} hover:${theme.hoverBg} transition-colors text-left`}
-            >
-              {darkMode ? <FaSun className="mr-2" /> : <FaMoon className="mr-2" />} Toggle Theme
+              {darkMode ? <FaSun className="mr-3 text-lg" /> : <FaMoon className="mr-3 text-lg" />} Toggle Theme
             </button>
           </div>
         </div>
       </div>
-    </>
-  );
-};
+      </>
+      
+  );}
+  
 
-// Helper function to get theme styles based on dark mode - professional colors
+
+// Theme styles - Professional color palette with good contrast
 const getThemeStyles = (darkMode) => {
   return {
-    navBg: darkMode ? 'bg-gray-900' : 'bg-gray-500',
-    text: darkMode ? 'text-white' : 'text-gray-800',
-    hoverText: darkMode ? 'text-gray-300' : 'text-gray-600',
-    iconText: darkMode ? 'text-gray-300' : 'text-gray-800',
-    dropdownBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
-    dropdownText: darkMode ? 'text-white' : 'text-white',
-    dropdownHover: darkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-700',
-    border: darkMode ? 'border-gray-700' : 'border-gray-200',
-    mobileMenuBg: darkMode ? 'bg-gray-900' : 'bg-gray-500',
-    mobileSubBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
-    mobileText: darkMode ? 'text-gray-100' : 'text-gray-800',
-    hoverBg: darkMode ? 'bg-gray-700' : 'bg-gray-700',
-    searchBg: darkMode ? 'bg-gray-800' : 'bg-gray-500',
-    searchText: darkMode
-      ? 'text-white placeholder-gray-400'
-      : 'text-gray-800 placeholder-gray-100',
-    searchBorder: darkMode ? 'border-gray-700' : 'border-gray-300',
-    searchFocus: darkMode ? 'focus:ring-blue-400' : 'focus:ring-blue-500',
+    navBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
+    text: darkMode ? 'text-gray-200' : 'text-white',
+    hoverText: darkMode ? 'text-white' : 'text-gray-300',
+    iconText: darkMode ? 'text-gray-300' : 'text-gray-200',
+    dropdownBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    dropdownText: darkMode ? 'text-gray-200' : 'text-white',
+    dropdownHover: darkMode ? 'hover:bg-gray-700 hover:text-white' : 'hover:bg-gray-600 hover:text-gray-200',
+    border: darkMode ? 'border-gray-700' : 'border-gray-600',
+    mobileMenuBg: darkMode ? 'bg-gray-900' : 'bg-gray-800',
+    mobileSubBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    mobileText: darkMode ? 'text-gray-200' : 'text-white',
+    hoverBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    searchBg: darkMode ? 'bg-gray-800' : 'bg-gray-700',
+    searchText: darkMode ? 'text-gray-200 placeholder-gray-500' : 'text-white placeholder-gray-400',
+    searchBorder: darkMode ? 'border-gray-700' : 'border-gray-600',
+    searchFocus: darkMode ? 'focus:ring-blue-500 focus:ring-offset-gray-900' : 'focus:ring-blue-400 focus:ring-offset-gray-800',
   };
 };
 
-// Main Navbar Component
+// Main Navbar - State management, fixed positioning, spacer
 const Navbar = ({
   darkMode: initialDarkMode = false,
   showCart = true,
   showUserMenu = true,
   showWishlist = true,
   cartCount = 3,
-  logoUrl = "/src/assets/logo.png" // Update this path to your logo
+  logoUrl = "../icon/logo.png"
 }) => {
   const [darkMode, setDarkMode] = useState(initialDarkMode);
   const [isUserOpen, setIsUserOpen] = useState(false);
@@ -581,7 +558,6 @@ const Navbar = ({
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [loginOpen, setLoginOpen] = useState(false);
   const [registerOpen, setRegisterOpen] = useState(false);
-
   const toggleDarkMode = () => setDarkMode(!darkMode);
   const toggleUserMenu = () => {
     setIsUserOpen(!isUserOpen);
@@ -598,45 +574,46 @@ const Navbar = ({
   const closeAllDropdowns = () => {
     setIsUserOpen(false);
     setIsCartOpen(false);
-    setActiveDropdown(null);
     setIsMobileOpen(false);
+    setActiveDropdown(null);
   };
 
   const theme = getThemeStyles(darkMode);
 
   return (
     <>
-      <nav className={`fixed top-0 left-0 right-0 ${theme.navBg} h-16 md:h-20 flex items-center justify-between px-4 md:px-8 z-50 shadow-md transition-colors duration-300`}>
-        <Logo darkMode={darkMode} logoUrl={logoUrl} />
-        <div className="flex-1 flex justify-center">
+      <nav className={`fixed top-0 left-0 right-0 z-50 ${theme.navBg} shadow-lg transition-colors duration-300`}>
+        <div className="container mx-auto px-4 sm:px-6 lg:px-2 h-16 md:h-20 flex items-center justify-between">
+          <Logo darkMode={darkMode} logoUrl={logoUrl} />
           <DesktopNavLinks navItems={navItems} darkMode={darkMode} />
-        </div>
-        <div className="flex items-center mx-24 gap-0">
-          <DesktopActionButtons
-            darkMode={darkMode}
-            onToggleDarkMode={toggleDarkMode}
-            onToggleUser={toggleUserMenu}
-            onToggleCart={toggleCartMenu}
-            isUserOpen={isUserOpen}
-            isCartOpen={isCartOpen}
-            showUserMenu={showUserMenu}
-            showWishlist={showWishlist}
-            showCart={showCart}
-            cartCount={cartCount}
-            onCloseAll={closeAllDropdowns}
-            onLoginClick={() => setLoginOpen(true)}
-            onRegisterClick={() => setRegisterOpen(true)}
-          />
-          <MobileActionButtons
-            darkMode={darkMode}
-            onToggleMobileMenu={toggleMobileMenu}
-            isMobileOpen={isMobileOpen}
-            onToggleCart={toggleCartMenu}
-            showCart={showCart}
-            cartCount={cartCount}
-          />
+          <div className="flex items-center gap-4 md:gap-6">
+            <DesktopActionButtons
+              darkMode={darkMode}
+              onToggleDarkMode={toggleDarkMode}
+              onToggleUser={toggleUserMenu}
+              onToggleCart={toggleCartMenu}
+              isUserOpen={isUserOpen}
+              isCartOpen={isCartOpen}
+              showUserMenu={showUserMenu}
+              showWishlist={showWishlist}
+              showCart={showCart}
+              cartCount={cartCount}
+              onCloseAll={closeAllDropdowns}
+              onLoginClick={() => setLoginOpen(true)}
+              onRegisterClick={() => setRegisterOpen(true)}
+            />
+            <MobileActionButtons
+              darkMode={darkMode}
+              onToggleMobileMenu={toggleMobileMenu}
+              isMobileOpen={isMobileOpen}
+              onToggleCart={toggleCartMenu}
+              showCart={showCart}
+              cartCount={cartCount}
+            />
+          </div>
         </div>
       </nav>
+      <div className="h-16 md:h-20" /> {/* Spacer */}
       <MobileMenu
         isOpen={isMobileOpen}
         darkMode={darkMode}
@@ -652,7 +629,6 @@ const Navbar = ({
         onLoginClick={() => setLoginOpen(true)}
         onRegisterClick={() => setRegisterOpen(true)}
       />
-      <div className="h-16 md:h-20"></div>
       <LoginModal
         open={loginOpen}
         onClose={() => setLoginOpen(false)}
