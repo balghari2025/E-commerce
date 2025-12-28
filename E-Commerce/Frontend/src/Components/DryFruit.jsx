@@ -24,7 +24,7 @@ const products = [
     id: 4,
     name: "Mamra Almond (Badam)",
     price: "₨ 2,800",
-    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSackYDW0Pw2Xu4p-8Je8xUSo9VuPzzv3CzxA&s",
+    image: "https://bnuts.in/wp-content/uploads/2021/10/Mamra-Almonds-large.jpg",
   },
   {
     id: 5,
@@ -90,7 +90,7 @@ const products = [
     id: 15,
     name: "Sultanas (Raisins)",
     price: "₨ 2,800 ",
-    image: "https://www.voicevale.com/wp-content/uploads/2018/02/SULTANAS-e1520618427989-1024x845.jpg",
+    image: "https://tse3.mm.bing.net/th/id/OIP.OZH_AX0tyLuLYf914zQEaAHaHa?pid=Api&P=0&h=220",
   },
   {
     id: 16,

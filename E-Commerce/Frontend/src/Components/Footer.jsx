@@ -1,19 +1,19 @@
 /**
  * Footer Component for Dry-Fruit Ecommerce Site
- * 
+ *
  * Features:
- * - Responsive design (mobile-first)
- * - Dark/light mode support
- * - Newsletter signup with validation
- * - Accessible markup
+ * - Fully responsive design (mobile-first with Tailwind breakpoints)
+ * - Dark/light mode support with improved color schemes
+ * - Newsletter signup with validation and feedback
+ * - Accessible markup with ARIA attributes
  * - SEO-friendly structured data
- * - Customizable links and branding
- * 
+ * - Customizable links, branding, and sections
+ *
  * Installation:
  * 1. Place in your components folder
  * 2. Install required icons: npm install lucide-react
  * 3. Customize brand colors, links, and content in the component
- * 
+ *
  * Props:
  * - darkMode: boolean - Toggle dark/light theme
  * - brandName: string - Your brand name
@@ -23,25 +23,24 @@
  * - showNewsletter: boolean - Show/hide newsletter section
  * - year: number - Copyright year (defaults to current)
  * - onSubscribe: function - Newsletter callback
- * - sticky: boolean - Make footer sticky
- * 
+ * - sticky: boolean - Make footer sticky at bottom
+ *
  * Customization:
  * - Update links in the defaultLinks object
  * - Replace social/payment icons in respective sections
  * - Modify colors using Tailwind classes or CSS variables
  * - Update contact information in the contact section
  */
-
 import React, { useState } from 'react';
-import { 
-  MapPin, 
-  Phone, 
-  Mail, 
+import {
+  MapPin,
+  Phone,
+  Mail,
   Clock,
   Send,
-  Facebook, 
-  Twitter, 
-  Instagram, 
+  Facebook,
+  Twitter,
+  Instagram,
   Youtube,
   MessageCircle
 } from 'lucide-react';
@@ -94,23 +93,18 @@ const Footer = ({
   const handleSubscribe = async (e) => {
     e.preventDefault();
     setError('');
-
     // Basic email validation
     if (!email || !/\S+@\S+\.\S+/.test(email)) {
       setError('Please enter a valid email address');
       return;
     }
-
     setIsSubmitting(true);
-
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
       if (onSubscribe) {
         onSubscribe(email);
       }
-      
       setSubscribed(true);
       setEmail('');
     } catch (err) {
@@ -120,38 +114,37 @@ const Footer = ({
     }
   };
 
-  // Theme classes
+  // Improved theme classes for better dark/light contrast
   const theme = {
-    background: darkMode ? 'bg-gray-900' : 'bg-stone-900',
-    text: darkMode ? 'text-gray-300' : 'text-stone-300',
-    heading: darkMode ? 'text-white' : 'text-stone-300',
+    background: darkMode ? 'bg-gray-900' : 'bg-gray-50',
+    text: darkMode ? 'text-gray-300' : 'text-gray-700',
+    heading: darkMode ? 'text-white' : 'text-gray-900',
     border: darkMode ? 'border-gray-700' : 'border-gray-200',
-    accent: 'text-green-600 hover:text-green-700',
-    
-    button: darkMode 
-      ? 'bg-green-600 hover:bg-green-700 text-white' 
-      : 'bg-green-600 hover:bg-green-700 text-white',
-    input: darkMode 
-      ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400' 
-      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500'
+    accent: darkMode ? 'text-green-400 hover:text-green-300' : 'text-green-600 hover:text-green-700',
+    button: darkMode
+      ? 'bg-green-600 hover:bg-green-500 text-white disabled:bg-green-800'
+      : 'bg-green-600 hover:bg-green-700 text-white disabled:bg-green-400',
+    input: darkMode
+      ? 'bg-gray-800 border-gray-700 text-white placeholder-gray-400 focus:border-green-500'
+      : 'bg-white border-gray-300 text-gray-900 placeholder-gray-500 focus:border-green-500',
+    error: darkMode ? 'text-red-400' : 'text-red-600',
+    success: darkMode ? 'text-green-400' : 'text-green-600'
   };
 
   return (
-    <footer className={`${theme.background} ${theme.text} ${sticky ? 'sticky top-0' : ''}`}>
-     
+    <footer className={`${theme.background} ${theme.text} relative ${sticky ? 'sticky bottom-0 z-10' : ''}`}>
       {/* Main Footer Content */}
       <div className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
-          
           {/* Brand Column */}
           <div className="lg:col-span-2">
-            {/* Logo - Replace with your logo component or image */}
+            {/* Logo */}
             <div className="mb-4">
               {LogoComponent ? (
                 <LogoComponent />
               ) : logoSrc ? (
-                <img 
-                  src={logoSrc} 
+                <img
+                  src={logoSrc}
                   alt={brandName}
                   className="h-8 w-auto"
                 />
@@ -161,13 +154,13 @@ const Footer = ({
                 </h2>
               )}
             </div>
-            
+
             <p className="mb-6 max-w-md">
               Premium quality dry fruits, nuts, and seeds sourced directly from nature's finest orchards.
             </p>
-            
+
             {/* Social Links */}
-            <div className="flex space-x-4">
+            <div className="flex space-x-4 mb-6">
               {[
                 { Icon: Facebook, label: 'Facebook', href: 'https://facebook.com' },
                 { Icon: Twitter, label: 'Twitter', href: 'https://twitter.com' },
@@ -189,9 +182,40 @@ const Footer = ({
                 </a>
               ))}
             </div>
+
+            {/* Newsletter Section */}
+            {showNewsletter && (
+              <div className="mt-8">
+                <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
+                  Subscribe to Our Newsletter
+                </h3>
+                <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-2">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Enter your email"
+                    className={`flex-1 px-4 py-2 rounded-md border focus:outline-none focus:ring-2 focus:ring-green-500 transition-all duration-200 ${theme.input}`}
+                    aria-label="Email for newsletter"
+                    required
+                  />
+                  <button
+                    type="submit"
+                    disabled={isSubmitting}
+                    className={`px-4 py-2 rounded-md flex items-center justify-center gap-2 transition-all duration-200 ${theme.button}`}
+                    aria-label="Subscribe"
+                  >
+                    <Send size={16} />
+                    {isSubmitting ? 'Subscribing...' : 'Subscribe'}
+                  </button>
+                </form>
+                {error && <p className={`mt-2 text-sm ${theme.error}`}>{error}</p>}
+                {subscribed && <p className={`mt-2 text-sm ${theme.success}`}>Subscribed successfully!</p>}
+              </div>
+            )}
           </div>
 
-          {/* Shop & Categories */}
+          {/* Shop Categories */}
           <div>
             <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
               Shop Categories
@@ -199,9 +223,9 @@ const Footer = ({
             <ul className="space-y-2">
               {currentLinks.shop.map((link) => (
                 <li key={link.name}>
-                  <a 
+                  <a
                     href={link.href}
-                    className={`hover:${theme.accent} transition-colors duration-200`}
+                    className={`${theme.accent} transition-colors duration-200`}
                   >
                     {link.name}
                   </a>
@@ -210,47 +234,46 @@ const Footer = ({
             </ul>
           </div>
 
-          {/* Customer & Company */}
-          <div className="space-y-8">
-            <div>
-              <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
-                Customer Care
-              </h3>
-              <ul className="space-y-2">
-                {currentLinks.customer.map((link) => (
-                  <li key={link.name}>
-                    <a 
-                      href={link.href}
-                      className={`hover:${theme.accent} transition-colors duration-200`}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            
-            <div>
-              <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
-                Company
-              </h3>
-              <ul className="space-y-2">
-                {currentLinks.company.map((link) => (
-                  <li key={link.name}>
-                    <a 
-                      href={link.href}
-                      className={`hover:${theme.accent} transition-colors duration-200`}
-                    >
-                      {link.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
+          {/* Customer Care */}
+          <div>
+            <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
+              Customer Care
+            </h3>
+            <ul className="space-y-2">
+              {currentLinks.customer.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className={`${theme.accent} transition-colors duration-200`}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Company */}
+          <div>
+            <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
+              Company
+            </h3>
+            <ul className="space-y-2">
+              {currentLinks.company.map((link) => (
+                <li key={link.name}>
+                  <a
+                    href={link.href}
+                    className={`${theme.accent} transition-colors duration-200`}
+                  >
+                    {link.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
 
           {/* Contact & Support */}
-          <div>
+          <div className="lg:col-start-5 lg:row-start-1 lg:row-span-2 lg:mt-0 mt-8">
             <h3 className={`font-semibold text-lg mb-4 ${theme.heading}`}>
               Contact & Support
             </h3>
@@ -259,49 +282,46 @@ const Footer = ({
                 <Phone size={18} className="mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Call Us</p>
-                  <a 
-                    href="tel:+1234567890" 
-                    className={`hover:${theme.accent} transition-colors duration-200`}
+                  <a
+                    href="tel:+923555711812"
+                    className={`${theme.accent} transition-colors duration-200`}
                   >
                     +923555711812
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <Mail size={18} className="mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Email Us</p>
-                  <a 
-                    href="mailto:support@nutridry.com" 
-                    className={`hover:${theme.accent} transition-colors duration-200`}
+                  <a
+                    href="mailto:shoaibbalghari@gmail.com"
+                    className={`${theme.accent} transition-colors duration-200`}
                   >
                     shoaibbalghari@gmail.com
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <MapPin size={18} className="mt-0.5 flex-shrink-0" />
                 <div>
                   <p className="font-medium">Visit Us</p>
                   <address className="not-italic">
-                    Sooq Balghar
-                    District Ghanche
-                    Country Pakistan <br />
-                    
+                    Sooq Balghar, District Ghanche, Pakistan
                   </address>
-                  <a 
-                    href="https://maps.google.com" 
-                    target="_blank" 
+                  <a
+                    href="https://maps.google.com"
+                    target="_blank"
                     rel="noopener noreferrer"
-                    className={`text-sm hover:${theme.accent} transition-colors duration-200`}
+                    className={`text-sm ${theme.accent} transition-colors duration-200`}
                   >
                     View on Map
                   </a>
                 </div>
               </div>
-              
+
               <div className="flex items-start space-x-3">
                 <Clock size={18} className="mt-0.5 flex-shrink-0" />
                 <div>
@@ -318,17 +338,15 @@ const Footer = ({
       <div className={`border-t ${theme.border} py-6`}>
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row justify-between items-center space-y-4 lg:space-y-0">
-            
             {/* Payment Methods */}
-            <div className="flex items-center space-x-4">
+            <div className="flex flex-wrap items-center space-x-4">
               <span className="text-sm font-medium">We Accept:</span>
-              <div className="flex items-center space-x-3">
-                {/* Payment Icons - Replace with actual payment method SVGs */}
+              <div className="flex flex-wrap items-center gap-3">
                 {['Visa', 'Mastercard', 'JazzCash', 'EasyPaisa', 'Apple Pay'].map((method) => (
-                  <div 
+                  <div
                     key={method}
                     className={`px-3 py-1 rounded text-xs font-medium ${
-                      darkMode ? 'bg-gray-700' : 'bg-green-900'
+                      darkMode ? 'bg-gray-700' : 'bg-gray-200'
                     }`}
                   >
                     {method}
@@ -338,29 +356,27 @@ const Footer = ({
             </div>
 
             {/* Trust Badges */}
-            <div className="flex items-center space-x-6 text-sm">
+            <div className="flex flex-wrap items-center gap-6 text-sm">
               <div className="flex items-center space-x-2">
-                <div className={`w-2 h-2 rounded-full bg-green-500`} />
+                <div className="w-2 h-2 rounded-full bg-green-500" />
                 <span>Secure Checkout</span>
               </div>
               <div className="flex items-center space-x-2">
-                <div className={`w-2 h-2 rounded-full bg-green-500`} />
+                <div className="w-2 h-2 rounded-full bg-green-500" />
                 <span>GMP Certified</span>
               </div>
             </div>
 
             {/* Additional Links */}
             <div className="flex items-center space-x-4 text-sm">
-              <a href="/sitemap" className={`hover:${theme.accent}`}>
+              <a href="/sitemap" className={`${theme.accent}`}>
                 Sitemap
               </a>
-              <a href="/accessibility" className={`hover:${theme.accent}`}>
+              <a href="/accessibility" className={`${theme.accent}`}>
                 Accessibility
               </a>
-              <select 
-                className={`bg-transparent border-none focus:outline-none focus:ring-0 ${
-                  darkMode ? 'text-gray-300' : 'text-gray-700'
-                }`}
+              <select
+                className={`bg-transparent border-none focus:outline-none focus:ring-0 cursor-pointer ${theme.text}`}
                 aria-label="Select language"
               >
                 <option value="en">English</option>
@@ -382,13 +398,13 @@ const Footer = ({
               </p>
             </div>
             <div className="flex items-center space-x-4">
-              <a href="/privacy" className={`hover:${theme.accent}`}>
+              <a href="/privacy" className={`${theme.accent}`}>
                 Privacy Policy
               </a>
-              <a href="/terms" className={`hover:${theme.accent}`}>
+              <a href="/terms" className={`${theme.accent}`}>
                 Terms of Service
               </a>
-              <a href="/accessibility" className={`hover:${theme.accent}`}>
+              <a href="/accessibility" className={`${theme.accent}`}>
                 Accessibility
               </a>
             </div>
@@ -396,7 +412,7 @@ const Footer = ({
         </div>
       </div>
 
-      {/* Structured Data for SEO (Optional) */}
+      {/* Structured Data for SEO */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
@@ -409,9 +425,9 @@ const Footer = ({
             "description": "Premium quality dry fruits, nuts, and seeds",
             "contactPoint": {
               "@type": "ContactPoint",
-              "telephone": "+1-234-567-890",
+              "telephone": "+923555711812",
               "contactType": "customer service",
-              "email": "support@nutridry.com"
+              "email": "shoaibbalghari@gmail.com"
             },
             "sameAs": [
               "https://facebook.com/nutridry",

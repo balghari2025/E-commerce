@@ -19,7 +19,7 @@ const products = [
   {
     name: "Mamra Almond (Badam)",
     price: "₨ 2,800.00 – ₨ 10,500.00",
-    image: "https://khalisonline.com/storage/general/mamra-almond-badam-02.jpg",
+    image: "https://bnuts.in/wp-content/uploads/2021/10/Mamra-Almonds-large.jpg",
   },
   {
     name: "Kaju (Cashew Nuts)",
@@ -74,7 +74,7 @@ const products = [
   {
     name: "Sultanas (Raisins)",
     price: "₨ 2,800.00 – ₨ 10,500.00",
-    image: "https://www.voicevale.com/wp-content/uploads/2018/02/SULTANAS-e1520618427989-1024x845.jpg",
+    image: "https://tse3.mm.bing.net/th/id/OIP.OZH_AX0tyLuLYf914zQEaAHaHa?pid=Api&P=0&h=220",
   },
   {
     name: "Musk Melon Seeds",
